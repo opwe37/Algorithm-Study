@@ -3,50 +3,33 @@ function solution(m, musicinfos) {
 
     var rememberedMelody = arrangeNote(m);
 
-    var musicInfos = new Array()
+    var musicInfo = new Array()
     for (var i = 0; i < musicinfos.length; i++) {
         var tmp = musicinfos[i].split(',');
-        var musicInfo = {
+        var info = {
             playedTime: calcPlayTime(tmp[0], tmp[1]),
             name: tmp[2],
             melody: arrangeNote(tmp[3])
         };
-        musicInfos.push(musicInfo);
+        musicInfo.push(info);
     }
 
-    var matchingMusic = new Array();
-    for (var music = 0; music < musicInfos.length; music++) {
-        // 재생된 시간만큼 멜로디 생성
-        var playedMeldy = [];
-        for (var musicTime = 0; musicTime < musicInfos[music].playedTime; musicTime++) {
-            var pivot = musicTime;
-            if (musicTime > (musicInfos[music].melody.length-1)) pivot = pivot % musicInfos[music].melody.length;
-            playedMeldy.push(musicInfos[music].melody[pivot]);
+    var matchedSong = new Array();
+    for (var music = 0; music < musicInfo.length; music++) {
+        var playedMeldy = '';
+        for (var i = 0; i < musicInfo[music].playedTime; i++) {
+            playedMeldy += musicInfo[music].melody[i % musicInfo[music].melody.length];
         }
-
-        // 기억하고 있는 멜로디만큼 나누어 비교
-        var compareStartPoint = 0;
-        while ((compareStartPoint+rememberedMelody.length) <=  playedMeldy.length) {
-            var melody = '';
-            for (var i = 0; i < rememberedMelody.length; i++) {
-                melody += playedMeldy[compareStartPoint + i];
-            }
-            if (m == melody) {
-                matchingMusic.push(musicInfos[music]);
-                break;
-            }
-            compareStartPoint++;
+        if (playedMeldy.includes(rememberedMelody)) {
+            matchedSong.push(musicInfo[music]);
         }
     }
 
-    if (matchingMusic.length == 0)  answer = "(None)";
-    else if (matchingMusic.length == 1) answer = matchingMusic[0].name;
-    else {
-        var playtime = [];
-        for (var i = 0; i < matchingMusic.length; i++) {
-            playtime.push(matchingMusic[i].playedTime);
-        }
-        answer = matchingMusic[playtime.indexOf(Math.max(...playtime))].name;
+    if (matchedSong.length > 0) {
+        var result = matchedSong.reduce((a, c) => a.playedTime >= c.playedTime ? a : c);
+        answer = result.name;
+    } else {
+        answer = "(None)";  
     }
 
     return answer;
@@ -54,7 +37,17 @@ function solution(m, musicinfos) {
 
 function arrangeNote(notes) {
     var regExp = /[A-Z]#?/g;
-    return notes.match(regExp);
+    var melody = notes.match(regExp);
+    melody.forEach(function(item, index, arr){
+        switch(item) {
+            case 'C#': arr[index] = 'c'; break;
+            case 'D#': arr[index] = 'd'; break;
+            case 'F#': arr[index] = 'f'; break;
+            case 'G#': arr[index] = 'g'; break;
+            case 'A#': arr[index] = 'a'; break;
+        }
+    });
+    return melody.join('');
 }
 
 function convertTime(time) {

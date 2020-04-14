@@ -68,13 +68,11 @@ for (var i = 0; i < 26; i++) {
 ```
 단어의 색인 번호는 *index + 1* 로 계산.
 
-- 압축 알고리즘 구현
-
-재귀호출 방법을 통하여 알고리즘 구현. 다음의 4가지 파라미터를 이용.
-  - w : 사전에서 검색할 단어
-  - c_index : *msg* 에서 *w* 뒤에 오는 단어의 인덱스
-  - msg : 입력으로 들어온 단어를 낱알로 나누어 저장한 배열
-  - result : 압축 결과를 저장하는 배열
+- 압축 알고리즘 구현 : 재귀호출 방법을 통하여 알고리즘 구현(다음의 4가지 파라미터를 이용).
+  + w : 사전에서 검색할 단어
+  + c_index : *msg* 에서 *w* 뒤에 오는 단어의 인덱스
+  + msg : 입력으로 들어온 단어를 낱알로 나누어 저장한 배열
+  + result : 압축 결과를 저장하는 배열
 
 
 ```javascript
@@ -94,3 +92,4 @@ function searchWord(w, c_index, msg, preIndex, result) {
     }
 }
 ```
+[전체 코드](https://github.com/opwe37/Algorithm-Study/blob/master/2018%20KAKAO%20BLIND%20RECRUITMENT/compression.js)

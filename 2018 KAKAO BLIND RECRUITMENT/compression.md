@@ -79,7 +79,7 @@ for (var i = 0; i < 26; i++) {
 function searchWord(w, c_index, msg, preIndex, result) {
     if (c_index > msg.length) {
         result.push(preIndex+1);
-        return;
+        return result;
     }
     var p = dic.indexOf(w);
 

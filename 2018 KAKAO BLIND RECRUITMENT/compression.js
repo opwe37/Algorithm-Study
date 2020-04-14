@@ -18,7 +18,7 @@ function solution(msg) {
 function searchWord(w, c_index, msg, preIndex, result) {
     if (c_index > msg.length) {
         result.push(preIndex+1);
-        return;
+        return result;
     }
     var p = dic.indexOf(w);
 

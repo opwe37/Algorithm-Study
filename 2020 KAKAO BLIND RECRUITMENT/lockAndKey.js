@@ -22,8 +22,8 @@ function matchKeyAndLock(key, lock) {
     while(true) {
         if (pivotY == (lock.length-key.length) && pivotX == (lock.length-key.length)) break;
         var tmplock = JSON.parse(JSON.stringify(lock));
-        for (var i = 0; i < size; i++) {
-            for (var j = 0; j < size; j++) {
+        for (var i = 0; i < key.length; i++) {
+            for (var j = 0; j < key.length; j++) {
                 tmplock[pivotX+i][pivotY+j] = tmplock[pivotX+i][pivotY+j] ^ key[i][j];
             }
         }

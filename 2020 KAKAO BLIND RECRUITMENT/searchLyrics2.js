@@ -20,11 +20,8 @@ function solution(words, queries) {
         }
         target_preTrie.insert(words[i]);
 
-        var transTmp = "";
-        for (var j = words[i].length; j > 0; j--) {
-            transTmp += words[i][j-1];
-        }
-        target_sufTrie.insert(transTmp);
+        var reverseWord = words[i].split("").reverse().join("");
+        target_sufTrie.insert(reverseWord);
     }
 
     for (var i = 0; i < queries.length; i++) {
@@ -39,12 +36,9 @@ function solution(words, queries) {
             var prefix = prefixTrie[index];
             answer.push(prefix.find(queries[i]));
         } else {
-            var transQuery = "";
-            for (var j = queries[i].length; j > 0; j--) {
-                transQuery += queries[i][j-1];
-            }
+            var reverseQuery =  queries[i].split("").reverse().join("")
             var suffix = suffixTrie[index];
-            answer.push(suffix.find(transQuery));
+            answer.push(suffix.find(reverseQuery));
         }
     }
     
@@ -79,16 +73,13 @@ var Trie = class {
     }
 
     find(query) {
-        var targetNode = this;
-        for (var i = 0; i < this.length; i++) {
-            if (query[i] == '?') return targetNode.count;
+        if (query[0] == '?') return this.count;
 
-            var search = (targetNode.child).find(function (e){
-                if (e.node == query[i]) return e;
-            });
-            if (search == undefined) return 0;
-            targetNode = search;
-        }
-        return 1;
+        var search = (this.child).find(function (e){
+            return e.node == query[0];
+        });
+
+        if (search == undefined) return 0;
+        return search.find(query.substr(1));
     }
 }

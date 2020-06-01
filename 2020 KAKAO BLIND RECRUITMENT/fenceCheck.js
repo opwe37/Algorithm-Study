@@ -11,7 +11,7 @@ function checkWeak(n, rWeak, rDist, count) {
     var copyDist = rDist.slice();
     var dist = copyDist.pop();
 
-    var tmp = [];
+    var results = [];
     for (var i = 0; i < rWeak.length; i++) {
         var rest_weak = rWeak.slice();
         var startPosi = rest_weak[i];
@@ -25,18 +25,7 @@ function checkWeak(n, rWeak, rDist, count) {
             }
         });
 
-        if (tmp.length == 0) tmp.push(rest);
-        else if (tmp[0].length == rest.length) {
-            tmp.push(rest);
-        } else if (tmp[0].length > rest.length) {
-            tmp = [];
-            tmp.push(rest);
-        }
-    }
-
-    var results = [];
-    for (var i = 0; i < tmp.length; i++) {
-        results.push(checkWeak(n, tmp[i], copyDist.slice(), count+1));
+        results.push(checkWeak(n, rest, copyDist, count+1));
     }
 
     results.filter((item, index) => results.indexOf(item) === index);

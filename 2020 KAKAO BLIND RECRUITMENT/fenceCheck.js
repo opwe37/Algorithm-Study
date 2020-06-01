@@ -1,5 +1,8 @@
 function solution(n, weak, dist) {
     var answer = 0;
+    dist.sort(function(a, b) {
+        return a - b;
+    });
     answer = checkWeak(n, weak, dist, 0);
     return answer;
 }

@@ -31,7 +31,7 @@ function checkWeak(n, rWeak, rDist, count) {
         results.push(checkWeak(n, rest, copyDist, count+1));
     }
 
-    results.filter((item, index) => results.indexOf(item) === index);
+    results = results.filter((item, index) => results.indexOf(item) === index);
     if (results.includes(-1)) {
         results.splice(results.indexOf(-1), 1);
         if (results.length != 0)    return Math.min.apply(null, results);

@@ -5,7 +5,6 @@ function solution(food_times, k) {
 
   var food_idx = 0;
   for (let i = 0; i < k; i++) {
-    // currnet food
     if (food_times[food_idx] == 0) {
       for (let j = 0; j < k; j++) {
         food_idx++;
@@ -17,7 +16,6 @@ function solution(food_times, k) {
     }
     food_times[food_idx]--;
 
-    // next food
     food_idx++;
     if (food_idx >= food_times.length) food_idx = 0;
   }

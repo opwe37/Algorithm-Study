@@ -1,4 +1,30 @@
-// Approach 1. Disjoin-Set / Unoin-Find
+// Approach 1. BFS
+function solution(n, computers) {
+    var answer = 0;
+    
+    var computer = new Map();
+    for (let i = 0; i < n; i++) {computer.set(i, i)}
+
+    var queue = [];
+    for (let i = 0; i < n; i++) {
+      if (!computer.has(i)) continue;
+
+      queue.push(computer.get(i));
+      computer.delete(i);
+      while (queue.length != 0) {
+        let tmp = queue.shift();
+        for (let j = 0; j < n; j++) {
+          if (computers[tmp][j] == 0) continue;
+
+          if (computer.has(j)) {queue.push(computer.get(j)); computer.delete(j)}
+        }
+      }
+      answer++;
+    }
+    return answer;
+}
+
+// Other Approach. Disjoin-Set / Unoin-Find
 function solution(n, computers) {
     var answer = 0;
     var network = [];

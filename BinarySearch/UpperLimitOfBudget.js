@@ -11,7 +11,7 @@ function solution(budgets, M) {
     }
     if (sumOfBudget <= M) return max;
     
-    while((min+1) != max) {
+    while(min <= max) {
         let mid = Math.floor((max+min)/2);
         sumOfBudget = 0;
         for (let budget of budgets) {
@@ -21,12 +21,16 @@ function solution(budgets, M) {
                 sumOfBudget += mid;
             }
         }
-        if (sumOfBudget <= M) {
-            min = mid;
+        
+        if (sumOfBudget == M) {
+            return mid;
+        }
+        else if (sumOfBudget < M) {
+            min = mid+1;
         } else {
-            max = mid;
+            max = mid-1;
         }
     }
     
-    return answer = min;
+    return answer = max;
 }

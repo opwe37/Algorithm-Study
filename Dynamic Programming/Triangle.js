@@ -27,11 +27,9 @@ function solution(triangle) {
         dp.push(new Array(val.length).fill(-1));
     });
     dp[0][0] = triangle[0][0];
-
-    for (let level = 1; level < triangle.length; level++) {
-      for (let idx = 0; idx < triangle[level].length; idx++) {
-        findMax(level, idx);
-      }
+    
+    for (let idx = 0; idx < triangle[triangle.length-1].length; idx++) {
+    findMax(triangle.length-1, idx);
     }
 
     answer = Math.max.apply(null, dp[dp.length-1]);

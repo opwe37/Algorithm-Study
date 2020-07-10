@@ -1,3 +1,15 @@
+// All TestCase Pass
+function solution(weight) {
+  weight.sort((a, b) => a - b);
+  var sum = 1;
+  if (sum > 1) return 1;
+  for (let i = 0; i < weight.length; i++) {
+    if (sum < weight[i]) break;
+    sum += weight[i];
+  }
+  return sum;
+}
+
 // Not Efficiency Approach : Using Recursive Method
 function solution1(weight) {
   var answer = 0;

@@ -3,7 +3,7 @@ function solution(K, travel) {
     
     const n = travel.length;
     
-    var dp = new Array(travel.length).fill(0).map(val => new Array(K+1).fill(0));
+    var dp = new Array(n).fill(0).map(val => new Array(K+1).fill(0));
     dp[0][travel[0][0]] = travel[0][1];
     dp[0][travel[0][2]] = travel[0][3];
 
@@ -25,5 +25,5 @@ function solution(K, travel) {
         }
     }
 
-    return answer = Math.max.apply(null, dp[travel.length-1]);
+    return answer = Math.max.apply(null, dp[n-1]);
 }

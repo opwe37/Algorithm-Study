@@ -11,15 +11,15 @@ function solution(K, travel) {
         for (let time = 0; time < K+1; time++) {
             let walk_time = travel[i][0]
               , walk_value = travel[i][1]
-              , bycicle_time = travel[i][2]
-              , bycicle_value = travel[i][3];
+              , bicycle_time = travel[i][2]
+              , bicycle_value = travel[i][3];
 
             if ((time - walk_time) >= 0 && dp[i-1][time - walk_time] != 0) {
                 let val = dp[i-1][time - walk_time] + walk_value;
                 dp[i][time] = val > dp[i][time] ? val : dp[i][time];
             }
-            if ((time - bycicle_time) >= 0 && dp[i-1][time - bycicle_time] != 0){
-                let val = dp[i-1][time - bycicle_time] + bycicle_value;
+            if ((time - bicycle_time) >= 0 && dp[i-1][time - bicycle_time] != 0){
+                let val = dp[i-1][time - bicycle_time] + bicycle_value;
                 dp[i][time] = val > dp[i][time] ? val : dp[i][time];
             }
         }

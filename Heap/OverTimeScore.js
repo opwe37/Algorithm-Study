@@ -40,15 +40,11 @@ class heap {
 
     pop_maxVal() {
         let last_idx = this.memory.length - 1;
-
-        var tmp = this.memory[0];
-        this.memory[0] = this.memory[last_idx];
-        this.memory[last_idx] = tmp;
+        [this.memory[0], this.memory[last_idx]] = [this.memory[last_idx], this.memory[0]];
 
         let returnVal = this.memory.pop();
 
         let cur_idx = 0;
-
         while (cur_idx < last_idx) {
             let left_child = (cur_idx * 2)+1
               , right_child = (cur_idx * 2)+2;

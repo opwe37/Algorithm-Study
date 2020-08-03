@@ -14,9 +14,9 @@ function solution(matrix_size) {
         d.push(matrix_size[i][1]);
     }
     
-    for (let o = 1; o < n+1; o++) {
-        for (let i = 1; i < n+1-o; i++) {
-            let j = i + o;
+    for (let len = 2; len < n+1; len++) {
+        for (let i = 1; i <= n+1-len; i++) {
+            let j = i + len -1;
             m[i][j] = Infinity;
             for (let k = i; k < j; k++) {
                 m[i][j] = Math.min(m[i][j], m[i][k]+m[k+1][j]+(d[i-1]*d[k]*d[j]));

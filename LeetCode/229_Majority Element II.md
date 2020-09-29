@@ -10,6 +10,23 @@ Given an integer array of size  _n_, find all elements that appear more than  `�
 
 (크기가 n인 정수 배열이 주어질때, n/3번 이상 반복되는 모든 요소를 찾으시오)
 
+## 예제
+- Example 1
+```
+Input: nums = [3,2,3]
+Output: [3]
+```
+- Example 2
+```
+Input: nums = [1]
+Output: [1]
+```
+- Example 3:
+```
+Input: nums = [1,2]
+Output: [1,2]
+```
+
 ## 접근 방법
 
 JavaScript의 자료구조인 Map 과 Set을 활용하여 문제해결

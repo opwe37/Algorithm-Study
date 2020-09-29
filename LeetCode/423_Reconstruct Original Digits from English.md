@@ -12,6 +12,18 @@ Given a  **non-empty**  string containing an out-of-order English representation
 >2.  Input is guaranteed to be valid and can be transformed to its original digits. That means invalid inputs such as "abc" or "zerone" are not permitted.
 >3.  Input length is less than 50,000.
 
+## 예제
+- Example 1
+```
+Input: "owoztneoer"
+Output: "012"
+```
+- Example 2:
+```
+Input: "fviefuro"
+Output: "45"
+```
+
 ## 접근방법
 
 영단어에서 중복되지 않는 알파벳통해 숫자를 주어진 문자열에서 숫자를 찾아가는 방식

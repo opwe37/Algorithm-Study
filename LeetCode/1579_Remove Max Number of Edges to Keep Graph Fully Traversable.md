@@ -18,7 +18,6 @@ Return  _the maximum number of edges you can remove, or return_  `-1`  _if it's 
 ## 예제
 ![](https://assets.leetcode.com/uploads/2020/08/19/ex1.png)
 - Example 1
-`edges[i] = [typei, ui, vi]`는 노드 `ui`와 `vi`사이 유형 `typei`의 양방향 간선을 의미합니다. 
 	```
 	Input: n = 4, edges = [[3,1,2],[3,2,3],[1,1,3],[1,2,4],[1,1,2],[2,3,4]]
 	Output: 2

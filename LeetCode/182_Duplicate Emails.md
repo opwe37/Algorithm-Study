@@ -29,6 +29,7 @@ insert  into  Person (Id, Email)  values  ('3',  'a@b.com')
 +----+---------+
 ```
 For example, your query should return the following for the above table:
+
 예를들어, 쿼리문은 위와 같은 테이블에서 다음의 결과를 출력할 것이다: 
 ```
 +---------+

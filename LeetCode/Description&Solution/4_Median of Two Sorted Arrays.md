@@ -59,12 +59,15 @@ j = (m + n + 1)/2 - i
 nums1_index : ..., i-1, i, ...
 nums2_index : ..., j-1, j, ...
 
-target : nums1[i] > nums2[j-1] && nums2[j] > nums1[i-1]인 i-1과 j-1
+target : nums1[i] > nums2[j-1] && nums2[j] > nums1[i-1]인 상황을 만드는 것이 목표
 ```
-- `nums2[j-1] > nums1[i]`이라면, `nums[i]`는 left_half에 포함되는 원소이고 최소 수를 `i+1`로 설정하여 이를 표현할 수 있다 : `nums1_min_count  = i + 1`
-- `nums1[i-1] > nums2[j]`이라면, `nums[i-1]`는 left_half에서 포함되지 않는 원소이고 최대 수를 `i-1`로 설정하여 이를 표현할 수 있다 : `nums1_max_count  = i - 1`
+- `nums2[j-1] > nums1[i]`이라면, `nums[i]`는 `left_half`에 포함되는 원소이고 최소 수를 `i+1`로 설정하여 이를 표현할 수 있다 : `nums1_min_count  = i + 1`
+- `nums1[i-1] > nums2[j]`이라면, `nums[i-1]`는 `left_half`에서 포함되지 않는 원소이고 최대 수를 `i-1`로 설정하여 이를 표현할 수 있다 : `nums1_max_count  = i - 1`
 
-이와 같은 과정을 거치다가 한 배열이 인덱스 값이 해당 배열의 범위를 벗어나게 된다면, 다른 배열에서 찾고자 하는 값의 위치를 특정 지을 수 있는 상황이된다.
+위의 과정을 반복하면서 조건에 만족하는 상황이 만들어지게 되면, 일반적으로는 `max(nums1[i-1], nums2[j-1])`의 값이 찾고자 하는 값이 된다.(단, `m+n`이 짝수인 상황은 추가 계산이 필요)
+하지만, i 혹은 j가 0 이거나 각 배열의 길이와 같은 경우 또한 고려해줘야 하는데, 다음 의미에 맞춰 값을 구하도록 해야 한다.
+- `i == 0` or `j == 0` : 해당 배열은 `left_half`에 포함되지 않는다는 뜻
+- `i == m` or `j == n` : 해당 배열은 `left_half`에 전부 포함된다는 뜻
 
 ## Full Source Code
 아래의 코드는 `O(log (m + n))`을 구현한 코드

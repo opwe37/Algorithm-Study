@@ -42,15 +42,27 @@ Output: 1.00000
 
 원문 : https://medium.com/@hazemu/finding-the-median-of-2-sorted-arrays-in-logarithmic-time-1d3f2ecbeb46
 
-`O(m + n)`의 접근 방법과의 가장 큰 차이점은 비교의 시작점이 두 배열의 중앙 위치라는 것. 또 최종 찾고자 하는 위치를 다음과 같이 정의한다는 점이다.
+`O(m + n)`의 접근 방법과의 가장 큰 차이점은 "`nums1`과 `nums2`이 합쳐진 배열을 중앙을 기점으로 왼쪽과 오른쪽으로 분리한다고 하였을 때, 왼쪽에 `nums1`의 배열의 원소가 몇개 포함되어 있는가"의 문제로 바라본다는 것이다.
 ```
-nums1_index : ..., ai, ai+1, ...
-nums2_index : ..., bj, bj+1, ...
-ai, bi : current index
+merged arr의 왼쪽(left_half)에 있는 값 중에서 nums1에서 온 값은 몇개인가.
+- nums1의 원소 중 최소 0개 ~ 최대 nums1.length개의 원소가 left_half의 후보
+- nums1_min_count = 0, nums1_max_count = nums1.length
+- nums2의 개수는 nums1의 개수에 따라 자연스럽게 정해진다.
+```
+여기서  `nums1`의 최소 수와 최대 수를 이용하여 해당 값을 찾아낼 수 있다.
 
-target : nums1[ai+1] > nums2[bj] && nums2[bj+1] > nums1[ai] => max(nums[ai], nums[bj])
+이분 탐색 시 최종 목적지는 각각의 값이 서로의 다음 값보다 크지 않은 위치이다.
 ```
-만약 `nums2[bj] > nums1[ai+1]`이라면, `nums1`의 인덱스 위치를 왼쪽으로 `nums2`의 위치를 오른쪽으로 이동 시키는 작업이 필요하다. 반대로 `nums1[ai] > nums2[bj+1]`이라면, `nums2`의 위치를 왼쪽으로 `nums1`의 위치를 오른쪽으로 이동시킨다.
+i = nums1_min_count + (a_max_count - a_min_count) / 2
+j = (m + n + 1)/2 - i
+
+nums1_index : ..., i-1, i, ...
+nums2_index : ..., j-1, j, ...
+
+target : nums1[i] > nums2[j-1] && nums2[j] > nums1[i-1]인 i-1과 j-1
+```
+- `nums2[j-1] > nums1[i]`이라면, `nums[i]`는 left_half에 포함되는 원소이고 최소 수를 `i+1`로 설정하여 이를 표현할 수 있다 : `nums1_min_count  = i + 1`
+- `nums1[i-1] > nums2[j]`이라면, `nums[i-1]`는 left_half에서 포함되지 않는 원소이고 최대 수를 `i-1`로 설정하여 이를 표현할 수 있다 : `nums1_max_count  = i - 1`
 
 이와 같은 과정을 거치다가 한 배열이 인덱스 값이 해당 배열의 범위를 벗어나게 된다면, 다른 배열에서 찾고자 하는 값의 위치를 특정 지을 수 있는 상황이된다.
 

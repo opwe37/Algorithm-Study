@@ -1,4 +1,26 @@
-var findMinFibonacciNumbers = function(k) {
+function findMinFibonacciNumbers_1(k) {
+	const fibonacci = [1, 1];
+    while (fibonacci[fibonacci.length-1] < k) {
+    	fibonacci.push(fibonacci[fibonacci.length-1] + fibonacci[fibonacci.length-2]);
+    }
+    
+    let ans = 0;
+    for (let i = fibonacci.length-1; i >= 0; i--) {
+    	if (fibonacci[i] <= k) {
+        	k -= fibonacci[i];
+            ans += 1;
+            if (k == 0) { break; } 
+        }
+    }
+    
+    return ans;
+}
+
+
+// ========================================================================================
+
+// Using Binary Search
+var findMinFibonacciNumbers_2 = function(k) {
     const fibo = [1,1];
     while (fibo[fibo.length-1] < k) {
         const fiboLen = fibo.length;

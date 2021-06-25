@@ -3,20 +3,20 @@ var numRabbits = function(answers) {
     
     const N = answers.length;
     
-    const map = new Map();
+    const answerCount = new Map();
     for (let i = 0; i < N; i++) {
-        if (!map.has(answers[i])) {
-            map.set(answers[i], 0);
+        if (!answerCount.has(answers[i])) {
+            answerCount.set(answers[i], 0);
         }
-        map.set(answers[i], map.get(answers[i]) + 1);
+        answerCount.set(answers[i], answerCount.get(answers[i]) + 1);
     }
     
-    for (let [num, val] of map.entries()) {
-        const q = Math.trunc(val / (num+1));
-        const r = val % (num+1);
+    for (let [answer, freq] of answerCount.entries()) {
+        const q = Math.trunc(freq / (answer+1));
+        const r = freq % (answer+1);
         
-        ans += q * (num+1);
-        ans += r == 0 ? 0 : (num+1);
+        ans += q * (answer+1);
+        ans += r == 0 ? 0 : (answer+1);
     }
     
     return ans;

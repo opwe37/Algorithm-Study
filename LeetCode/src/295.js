@@ -33,20 +33,19 @@ var MedianFinder_heap = function() {
     this.minHeap = [];
 };
 
-MedianFinder_heap.prototype.addNum = function(num) {
-    heapPush(this.maxHeap, num, (a, b) => a - b);
-    heapPush(this.minHeap, this.maxHeap[0], (a, b) => b - a);
-    heapPop(this.maxHeap, (a, b) => a - b);
+MedianFinder.prototype.addNum = function(num) {
+    heapPush(this.maxHeap, num);
+    heapPush(this.minHeap, -heapPop(this.maxHeap));
     
     if (this.maxHeap.length < this.minHeap.length) {
-        heapPush(this.maxHeap, this.minHeap[0], (a, b) => a - b);
-        heapPop(this.minHeap, (a, b) => b - a);
+        heapPush(this.maxHeap, -heapPop(this.minHeap));
     }
 };
 
+
 MedianFinder_heap.prototype.findMedian = function() {
     if (this.maxHeap.length == this.minHeap.length) {
-        return (this.maxHeap[0] + this.minHeap[0]) / 2;
+        return (this.maxHeap[0] - this.minHeap[0]) / 2;
     } else {
         return this.maxHeap[0];
     }
@@ -54,11 +53,10 @@ MedianFinder_heap.prototype.findMedian = function() {
 
 var heapPush = function(arr, num, compareTo) {
     arr.push(num);
-  
     let curIdx = arr.length-1,
         parentIdx = Math.floor((curIdx-1)/2);
     while (curIdx > 0) {
-        if (compareTo(arr[parentIdx], arr[curIdx]) > 0) { break; }
+        if (arr[parentIdx] > arr[curIdx]) { break; }
         
         [arr[curIdx], arr[parentIdx]] = [arr[parentIdx], arr[curIdx]];
         curIdx = parentIdx;
@@ -76,11 +74,11 @@ var heapPop = function(arr, compareTo) {
     let curIdx = 0,
         childIdx = 2*curIdx + 1;
     while (childIdx < arr.length) {
-        if (childIdx + 1 < arr.length && compareTo(arr[childIdx+1], arr[childIdx]) > 0) {
+        if (childIdx + 1 < arr.length && arr[childIdx+1] > arr[childIdx]) {
             childIdx += 1;
         }
         
-        if (compareTo(arr[curIdx], arr[childIdx]) > 0) { break; }
+        if (arr[curIdx] > arr[childIdx]) { break; }
         [arr[curIdx], arr[childIdx]] = [arr[childIdx], arr[curIdx]];
         curIdx = childIdx;
         childIdx = 2*curIdx + 1;

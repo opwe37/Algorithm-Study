@@ -13,7 +13,6 @@ var largestIsland = function(grid) {
                 continue; 
             }
             const id = r * N + c;
-            if (uf.maxSz == 0) { uf.maxSz = 1; }
             
             for (let i = 0; i < 2; i++) {
                 const adjRow = r + m[i][0];
@@ -27,11 +26,10 @@ var largestIsland = function(grid) {
         }
     }
     
-    
-    let ans = uf.maxSz - 1;
+    let ans = Math.max(...uf.sz);
     
     for (let [r, c] of zeroPoint) {
-        let tmpIslandSize = 0;
+        let tmpIslandSize = 1;
         
         const roots = new Set();
         for (let i = 0; i < 4; i++) {
@@ -51,14 +49,13 @@ var largestIsland = function(grid) {
         ans = Math.max(tmpIslandSize, ans);
     }
 
-    return ans + 1;
+    return ans;
 };
 
 class UnionFind{
     constructor(n) {
         this.id = new Array(n*n).fill(0).map((val, idx) => idx);
         this.sz = new Array(n*n).fill(1);
-        this.maxSz = 0;
     }
     
     root(i) {
@@ -82,12 +79,10 @@ class UnionFind{
         if (this.sz[i] > this.sz[j]) { 
             this.id[j] = i; 
             this.sz[i] += this.sz[j];
-            this.maxSz = Math.max(this.sz[i], this.maxSz);
         }
         else {
             this.id[i] = j; 
             this.sz[j] += this.sz[i]; 
-            this.maxSz = Math.max(this.sz[j], this.maxSz);
         }
     }
 }

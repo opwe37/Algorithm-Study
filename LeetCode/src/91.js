@@ -14,7 +14,7 @@ var numDecodings = function(s) {
         return memo[idx];
     }
     
-    findSubDecoding(s, 0, "");
+    findSubDecoding(s, 0);
     
     return memo[0];
 };
